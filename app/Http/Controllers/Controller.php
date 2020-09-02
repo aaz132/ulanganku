@@ -25,4 +25,17 @@ class Controller extends BaseController
             'errors' => $error
         ], $code)->header('Content-Type', 'application/json');
     }
+    public function parseValidator($validator)
+  {
+    if ($validator->fails()) {
+      $messages = $validator->errors()->toArray();
+      $errors = [];
+      foreach ($messages as $key => $value) {
+        $errors[$key] = $value[0];
+      }
+      return $errors;
+    } else {
+      return [];
+    }
+  }
 }

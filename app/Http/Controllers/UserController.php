@@ -55,7 +55,7 @@ class UserController extends Controller
       public function create(Request $request) {
         $validator = Validator::make($request->all(), [
           'email' => 'required|unique:users|email',
-          'id_role' => 'required|exists:init_user_role,id',
+        //   'id_role' => 'required|exists:init_user_role,id',
           'name' => 'required|min:3|max:100',
         ]);
     
@@ -77,6 +77,6 @@ class UserController extends Controller
         $user ->dk = $request->dk;
         $user->save();
     
-        return $this->sendSuccess($this->getUser($user));
+        return $this->sendSuccess($this->getUser($user), 'Success');
       }
 }
