@@ -67,7 +67,7 @@ class UserController extends Controller
         $user = new User();
     
         $user->email = $request->email;
-        $user->password = app('hash')->make('byo-living');
+        $user->password = app('hash')->make('ulanganku');
         if ($request->has('password') && $request->password != null && $request->password != "") {
           $user->password = app('hash')->make($request->password);
         }
