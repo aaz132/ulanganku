@@ -7,7 +7,6 @@ use App\User;
 use \Firebase\JWT\JWT;
 use Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -72,11 +71,16 @@ class UserController extends Controller
         if ($request->has('password') && $request->password != null && $request->password != "") {
           $user->password = app('hash')->make($request->password);
         }
-        $user->id_role = $request->id_role;
+        // $user->id_role = $request->id_role;
         $user->name = $request->name;
         $user ->dk = $request->dk;
         $user->save();
     
         return $this->sendSuccess($this->getUser($user), 'Success');
+      }
+      private function getUser(User $user) {
+        $user->role;
+        unset($user->password);
+        return $user;
       }
 }
