@@ -15,11 +15,12 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyInteger('status')->default(0);
-        });    }
+        });    
+    }
 
     /**
      * Reverse the migrations.
-     *
+     *asdasdasdadsada
      * @return void
      */
     public function down()
