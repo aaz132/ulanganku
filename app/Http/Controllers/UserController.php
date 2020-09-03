@@ -90,8 +90,27 @@ class UserController extends Controller
           'user' => $user
         ], 'success');
       }
+<<<<<<< HEAD
       public function UpdateUser(Request $request, $email)
       {
 
       }
 }
+=======
+      public function delete(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return $this->sendError([
+                'user' => 'Data doesnt exists'
+            ], 'Data doesnt exists');
+        }
+        $user->delete();
+        return $this->sendSuccess(
+            [
+                'user' => $user
+            ],
+            'Data has been deleted'
+      );}
+  }
+>>>>>>> b24fc291846fa84db176857b55c1c44e4eb8e6e6
