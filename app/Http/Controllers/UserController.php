@@ -54,7 +54,7 @@ class UserController extends Controller
       public function create(Request $request) {
         $validator = Validator::make($request->all(), [
           'email' => 'required|unique:users|email',
-        //   'id_role' => 'required|exists:init_user_role,id',
+          'id_role' => 'required|exists:init_user_role,id',
           'name' => 'required|min:3|max:100',
         ]);
     
@@ -71,7 +71,7 @@ class UserController extends Controller
         if ($request->has('password') && $request->password != null && $request->password != "") {
           $user->password = app('hash')->make($request->password);
         }
-        // $user->id_role = $request->id_role;
+        $user->id_role = $request->id_role;
         $user->name = $request->name;
         $user ->dk = $request->dk;
         $user->save();
@@ -89,5 +89,9 @@ class UserController extends Controller
         return $this->sendSuccess([
           'user' => $user
         ], 'success');
+      }
+      public function UpdateUser(Request $request, $email)
+      {
+
       }
 }

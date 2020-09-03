@@ -21,6 +21,7 @@ Route::group([
     'middleware' => 'userauth:api',
 ], function ($router) {
     $router->get('/user/all', 'UserController@GetAllUser');
+    $router->get('/user/update/{$id}', 'UserController@UpdateUser');
 });
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
