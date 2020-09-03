@@ -54,7 +54,7 @@ class UserController extends Controller
       public function create(Request $request) {
         $validator = Validator::make($request->all(), [
           'email' => 'required|unique:users|email',
-        //   'id_role' => 'required|exists:init_user_role,id',
+          'id_role' => 'required|exists:init_user_role,id',
           'name' => 'required|min:3|max:100',
         ]);
     
@@ -71,7 +71,7 @@ class UserController extends Controller
         if ($request->has('password') && $request->password != null && $request->password != "") {
           $user->password = app('hash')->make($request->password);
         }
-        // $user->id_role = $request->id_role;
+        $user->id_role = $request->id_role;
         $user->name = $request->name;
         $user ->dk = $request->dk;
         $user->save();
@@ -83,4 +83,34 @@ class UserController extends Controller
         unset($user->password);
         return $user;
       }
+      public function GetAllUser(Request $request)
+      {
+        $user = User::all();
+        return $this->sendSuccess([
+          'user' => $user
+        ], 'success');
+      }
+<<<<<<< HEAD
+      public function UpdateUser(Request $request, $email)
+      {
+
+      }
 }
+=======
+      public function delete(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return $this->sendError([
+                'user' => 'Data doesnt exists'
+            ], 'Data doesnt exists');
+        }
+        $user->delete();
+        return $this->sendSuccess(
+            [
+                'user' => $user
+            ],
+            'Data has been deleted'
+      );}
+  }
+>>>>>>> b24fc291846fa84db176857b55c1c44e4eb8e6e6
