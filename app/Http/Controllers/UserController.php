@@ -90,11 +90,20 @@ class UserController extends Controller
           'user' => $user
         ], 'success');
       }
-      public function delete(Request $request, $email) {
-        if ($request->auth_user->email == $email) {
-          return $this->sendError([
-            'email' => 'You can not delete your own account'
-          ], 'You can not delete your own account');
+      public function delete(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return $this->sendError([
+                'user' => 'Data doesnt exists'
+            ], 'Data doesnt exists');
         }
-      }
+        $user->delete();
+        return $this->sendSuccess(
+            [
+                'user' => $user
+            ],
+            'Data has been deleted'
+        );
+    }
     }

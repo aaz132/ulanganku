@@ -21,7 +21,7 @@ Route::group([
     'middleware' => 'userauth:api',
 ], function ($router) {
     $router->get('/user/all', 'UserController@GetAllUser');
-    $router->post('/user    /delete/{id}', 'UserController@delete');
+    $router->delete('/user/delete/{id}', 'UserController@delete');
 });
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
