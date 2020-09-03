@@ -104,6 +104,5 @@ class UserController extends Controller
                 'user' => $user
             ],
             'Data has been deleted'
-        );
-    }
-    }
+      );}
+  }
