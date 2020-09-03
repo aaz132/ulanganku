@@ -83,4 +83,11 @@ class UserController extends Controller
         unset($user->password);
         return $user;
       }
+      public function GetAllUser(Request $request)
+      {
+        $user = User::all();
+        return $this->sendSuccess([
+          'user' => $user
+        ], 'success');
+      }
 }

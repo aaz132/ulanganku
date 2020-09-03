@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::group([
+    'middleware' => 'userauth:api',
+], function ($router) {
+    $router->get('/user/all', 'UserController@GetAllUser');
+});
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
