@@ -22,6 +22,7 @@ Route::group([
 ], function ($router) {
     $router->get('/user/all', 'UserController@GetAllUser');
     $router->delete('/user/delete/{id}', 'UserController@delete');
+    $router->post('/user/update', 'UserController@update');
 });
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');

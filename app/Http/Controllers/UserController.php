@@ -104,5 +104,30 @@ class UserController extends Controller
                 'user' => $user
             ],
             'Data has been deleted'
-      );}
+      );
+    }
+    public function update(Request $request)
+  {
+    $input = $request->input();
+    $users = (array) $request->auth_user;
+    $user = User::where('email', $users['email'])->first();
+    if (array_key_exists('password', $input)) {
+      $password = $request->password;
+        if (strlen($password) > 5) {
+          $user->password = app('hash')->make($password);
+        } else {
+          return $this->sendError([
+              'password' => 'The password must be at least 6 characters'
+          ], 'Bad Request');
+        }
+    }
+
+    if (array_key_exists('name', $input)) {
+      $user->name = $request->name;
+    }
+
+    $user->save();
+
+    return $this->sendSuccess($this->getUser($user));
+  }
   }
