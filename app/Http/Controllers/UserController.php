@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InitUserRole;
+use App\InitUserRole;
 use App\User;
 use \Firebase\JWT\JWT;
 use Validator;
@@ -90,13 +90,6 @@ class UserController extends Controller
           'user' => $user
         ], 'success');
       }
-<<<<<<< HEAD
-      public function UpdateUser(Request $request, $email)
-      {
-
-      }
-}
-=======
       public function delete(Request $request, $id)
     {
         $user = User::find($id);
@@ -111,6 +104,54 @@ class UserController extends Controller
                 'user' => $user
             ],
             'Data has been deleted'
-      );}
+      );
+    }
+    public function update(Request $request)
+  {
+    $input = $request->input();
+    $users = (array) $request->auth_user;
+    $user = User::where('email', $users['email'])->first();
+    if (array_key_exists('password', $input)) {
+      $password = $request->password;
+        if (strlen($password) > 5) {
+          $user->password = app('hash')->make($password);
+        } else {
+          return $this->sendError([
+              'password' => 'The password must be at least 6 characters'
+          ], 'Bad Request');
+        }
+    }
+
+    if (array_key_exists('name', $input)) {
+      $user->name = $request->name;
+    }
+
+    $user->save();
+
+    return $this->sendSuccess($this->getUser($user));
   }
->>>>>>> b24fc291846fa84db176857b55c1c44e4eb8e6e6
+  public function getRole(Request $request)
+  {
+    $role = InitUserRole::all();
+
+    return $this->sendSuccess([
+      'role' => $role
+    ], 'Success');
+  }
+  public function all(Request $request) {
+    $query = User::where('is_active', 1);
+
+    if ($request->has('id_role')) {
+        $query->where('id_role', $request->input('id_role'));
+    }
+
+    $users = $query->get();
+
+
+    foreach ($users as $user) {
+      $this->getUser($user);
+    }
+
+    return $this->sendSuccess($users);
+  }
+}
