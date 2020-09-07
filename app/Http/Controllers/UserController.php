@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InitUserRole;
+use App\InitUserRole;
 use App\User;
 use \Firebase\JWT\JWT;
 use Validator;
@@ -130,4 +130,28 @@ class UserController extends Controller
 
     return $this->sendSuccess($this->getUser($user));
   }
+  public function getRole(Request $request)
+  {
+    $role = InitUserRole::all();
+
+    return $this->sendSuccess([
+      'role' => $role
+    ], 'Success');
   }
+  public function all(Request $request) {
+    $query = User::where('is_active', 1);
+
+    if ($request->has('id_role')) {
+        $query->where('id_role', $request->input('id_role'));
+    }
+
+    $users = $query->get();
+
+
+    foreach ($users as $user) {
+      $this->getUser($user);
+    }
+
+    return $this->sendSuccess($users);
+  }
+}

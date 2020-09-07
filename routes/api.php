@@ -23,6 +23,15 @@ Route::group([
     $router->get('/user/all', 'UserController@GetAllUser');
     $router->delete('/user/delete/{id}', 'UserController@delete');
     $router->post('/user/update', 'UserController@update');
+    $router->get('/user/role', 'UserController@getRole');
+    // ==================       Pengajar    ======================
+    $router->group(['middleware' => 'role:pengajar'], function ($router) {
+    });
+    //===================       Siswa       ======================== 
+    $router->group(['middleware' => 'role:siswa'], function ($router) {
+    
+    });
+
 });
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
