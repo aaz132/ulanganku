@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\InitUserRole;
+use App\Models\InitUserRole;
 use App\User;
 use \Firebase\JWT\JWT;
 use Validator;

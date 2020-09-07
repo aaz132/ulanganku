@@ -13,8 +13,4 @@ class User extends Model
     {
         return $this->hasOne('App\Models\InitUserRole', 'id', 'id_role');
     }
-    public function notification()
-    {
-        return $this->hasMany('App\Models\CRM\Notification', 'id_sender', 'id');
-    }
 }
