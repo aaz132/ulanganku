@@ -33,5 +33,11 @@ Route::group([
     
     });
 });
+
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
+
+//Forget Password
+$router->group(['prefix' => 'forget-password'], function ($router) {
+    $router->post('/', 'UserController@SendTokenForgetPassword');
+});
