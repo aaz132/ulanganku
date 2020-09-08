@@ -90,6 +90,13 @@ class UserController extends Controller
           'user' => $user
         ], 'success');
       }
+<<<<<<< HEAD
+      public function UpdateUser(Request $request, $email)
+      {
+
+      }
+}
+=======
       public function delete(Request $request, $id)
     {
         $user = User::find($id);
@@ -154,4 +161,8 @@ class UserController extends Controller
 
     return $this->sendSuccess($users);
   }
+<<<<<<< HEAD
 }
+=======
+>>>>>>> b24fc291846fa84db176857b55c1c44e4eb8e6e6
+>>>>>>> ec53287ca55ab9be78a41f9594f571345b616aed
