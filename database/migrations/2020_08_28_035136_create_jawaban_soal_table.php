@@ -15,10 +15,10 @@ class CreateJawabanSoalTable extends Migration
     {
         Schema::create('jawaban_soal', function (Blueprint $table) {
             $table->id();
-            $table->longText('pila');
-            $table->longText('pilb');
-            $table->longText('pilc');
-            $table->longText('pild');
+            $table->longText('pilihan_a');
+            $table->longText('pilihan_b');
+            $table->longText('pilihan_c');
+            $table->longText('pilihan_d');
             $table->string('jawaban', 1);
             $table->bigInteger('id_soal')->unsigned();
             $table->timestamps();
