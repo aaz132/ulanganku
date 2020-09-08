@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrivateTable extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePrivateTable extends Migration
      */
     public function up()
     {
-        Schema::create('private', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_ulangan')->unsigned();
-            $table->string('kode', 100);
+            $table->string('code', 100);
+            $table->smallInteger('is_private');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreatePrivateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('private');
+        Schema::dropIfExists('rooms');
     }
 }

@@ -17,7 +17,7 @@ class CreateUlanganTable extends Migration
             $table->id();
             $table->string('nama_ulangan', 100);
             $table->time('waktu');
-            $table->bigInteger('id_mata_pelajaran')->unsigned();
+            $table->string('mata_pelajaran', 100)->nullable();
             $table->string('password', 100);
             $table->timestamps();
         });

@@ -10,5 +10,9 @@ class UlanganController extends Controller
         $ulangan = Ulangan::insert([
             'id_mata_pelajaran' => $request->id_user,
         ]);
+
+        $flight = new Flight;
+        $flight->name = $request->name;
+        $flight->save();
     }
 }
