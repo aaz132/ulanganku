@@ -21,7 +21,6 @@ Route::group([
     'middleware' => 'userauth:api',
 ], function ($router) {
     $router->get('/user/all', 'UserController@GetAllUser');
-
     $router->get('/user/update/{$id}', 'UserController@UpdateUser');
     $router->delete('/user/delete/{id}', 'UserController@delete');
     $router->post('/user/update', 'UserController@update');
@@ -34,5 +33,11 @@ Route::group([
     
     });
 });
+
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@create');
+
+//Forget Password
+$router->group(['prefix' => 'forget-password'], function ($router) {
+    $router->post('/', 'UserController@SendTokenForgetPassword');
+});

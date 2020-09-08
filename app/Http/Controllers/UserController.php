@@ -90,13 +90,6 @@ class UserController extends Controller
           'user' => $user
         ], 'success');
       }
-<<<<<<< HEAD
-      public function UpdateUser(Request $request, $email)
-      {
-
-      }
-}
-=======
       public function delete(Request $request, $id)
     {
         $user = User::find($id);
@@ -161,8 +154,54 @@ class UserController extends Controller
 
     return $this->sendSuccess($users);
   }
-<<<<<<< HEAD
+
+  public function SendTokenForgetPassword(Request $request)
+  {
+    $validator = Validator::make($request->all(),[
+      'email' => 'required|exists:users,email'
+    ]);
+
+    if ($validator->fails()) {
+      $error = $this->parseValidator($validator);
+      return $this->sendError($error, 'bad request');
+    }
+
+    $user = User::where('email', $request->email)->first();
+
+    $forgetPasswordToken = md5(uniqid(rand(16,32), true));
+    $user->forget_password_token = $forgetPasswordToken;
+    $user->save();
+
+    MailController::SendResetPasswordToken($user, $forgetPasswordToken);
+
+    return $this->sendSuccess(['user' => $user], 'Success');
+  }
+  public function getResetPasswordForm(Request $request)
+  {
+    $token  = $request->input('fpt');
+    $reset = true;
+    return view('auth.forget-password', compact('token', 'reset'));
+  }
+  public function resetPassword(Request $request)
+  {
+
+    // dd('berhasil');
+    $validator = Validator::make($request->all(),[
+      'password' => 'required|confirmed|min:6',
+    ]);
+
+    if ($validator->fails()) {
+      $errors = $this->parseValidator($validator);
+      return $this->sendError($errors, 'Bad Request');
+    }
+  
+    $token = $request->input('fpt');
+    $user = User::where('forget_password_token', $token)->first();
+    $user->password = app('hash')->make($request->password);
+    $user->forget_password_token = null;
+    $user->save();
+    $reset = false;
+    return view('auth.forget-password', compact('token', 'reset'));
+  }
+
 }
-=======
->>>>>>> b24fc291846fa84db176857b55c1c44e4eb8e6e6
->>>>>>> ec53287ca55ab9be78a41f9594f571345b616aed
