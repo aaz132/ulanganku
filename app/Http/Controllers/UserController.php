@@ -73,7 +73,6 @@ class UserController extends Controller
         }
         $user->id_role = $request->id_role;
         $user->name = $request->name;
-        $user ->dk = $request->dk;
         $user->save();
     
         return $this->sendSuccess($this->getUser($user), 'Success');

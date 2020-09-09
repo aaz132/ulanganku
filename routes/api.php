@@ -27,11 +27,14 @@ Route::group([
     $router->get('/user/role', 'UserController@getRole');
     // ==================       Pengajar    ======================
     $router->group(['middleware' => 'role:pengajar'], function ($router) {
+        $router->post('/user/createulangan', 'Ulangancontroller@createUlangan');
     });
     //===================       Siswa       ======================== 
     $router->group(['middleware' => 'role:siswa'], function ($router) {
     
     });
+
+
 });
 
 Route::post('/login', 'UserController@login');

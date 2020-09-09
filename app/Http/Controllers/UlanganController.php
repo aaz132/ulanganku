@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Ulangan;
 
 class UlanganController extends Controller
 {
-    public function createUlangan(Request $request)
+    public function createUlangan(Type $var = null)
     {
-        $ulangan = Ulangan::insert([
-            'id_mata_pelajaran' => $request->id_user,
-        ]);
 
-        $flight = new Flight;
-        $flight->name = $request->name;
-        $flight->save();
+        $input = $request->input();
+        $nama_ulangan = $input['nama_ulangan'];
+        $ulangan = new Ulangan;
+        $ulangan->nama_ulangan = $nama_ulangan;
+        $ulangan->save();
+        
     }
 }
